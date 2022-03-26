@@ -18,7 +18,6 @@
   },
   "homepage": "https://github.com/CuteNickychan/ProjectLibrarian#readme",
   "dependencies": {
-    "firebase": "^9.6.10",
-    "firebase-tools": "^10.5.0"
+    "firebase": "^9.6.10"
   }
 }
