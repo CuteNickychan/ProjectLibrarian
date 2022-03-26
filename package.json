@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/CuteNickychan/ProjectLibrarian/issues"
   },
-  "homepage": "https://github.com/CuteNickychan/ProjectLibrarian#readme"
+  "homepage": "https://github.com/CuteNickychan/ProjectLibrarian#readme",
+  "dependencies": {
+    "firebase": "^9.6.10"
+  }
 }
