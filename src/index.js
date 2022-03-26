@@ -23,4 +23,4 @@ async function loadCity(name) {
     };
   }
 */
-console.log("Test!");
+console.log("Test2!");
