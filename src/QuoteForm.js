@@ -3,39 +3,61 @@ import React, { Component } from "react";
 import { addDoc } from "firebase/firestore";
 import { collection } from "firebase/firestore";
 
-import {PopUp} from './Popup'
+import { TextField, Box,Button } from '@mui/material';
+import TextareaAutosize from '@mui/base/TextareaAutosize';
+
+import '../style/QuoteForm.css';
 
 class QuoteForm extends Component {
+
+    authorError= false;
+    quoteError= false;
+    submitSuccess= false;
+
     constructor(props) {
       super(props);
       this.state = {
         quote: '',
         author: '',
         comment:''
-      };
-
-      this.handleChange = this.handleChange.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
+    };
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(event) {
-        this.setState({quote: event.target.value});
+    validateForm()
+    {
+        var valid = true;
+        if (!/\S/.test(this.state.quote))
+        {
+            valid = false;
+            this.quoteError = true;
+        }
+        if (!/\S/.test(this.state.author))
+        {
+            valid = false;
+            this.authorError = true;
+        }
+        this.forceUpdate();
+        return valid;
     }
 
     async handleSubmit(event) {
-        console.log("A Test");
         try
         {
-
-            const docRef = await addDoc(collection(db, "quote"), 
+            if (this.validateForm())
             {
-                quote: this.state.quote,
-                author: this.state.author,
-                comment: this.state.comment,
-                date: new Date().getTime()
-            });
-            console.log(docRef);
-            
+                
+                const docRef = await addDoc(collection(db, "quote"), 
+                {
+                    quote: this.state.quote,
+                    author: this.state.author,
+                    comment: this.state.comment,
+                    date: new Date().getTime()
+                });
+                
+                this.submitSuccess = true;
+                setTimeout(()=>{this.props.setTrigger(false)},500);
+            } 
         }catch(e)
         {
             console.warn(e);
@@ -44,21 +66,77 @@ class QuoteForm extends Component {
 
     render() {
       return (
-        <form onSubmit={this.handleSubmit}>
-            <div className="inline-grid" style={display=inlinegrid}>
+          <div> 
+            <Box    className="box" 
+                    sx=
+                    {{
+                        '& > :not(style)': { m: 1 },
+                        display: 'flex',
+                        alignItems: 'center',
+                    }}>
+                <TextField
+                    helperText="Enter the Authors Name here."
+                    label="Author"
+                    required
+                    error={this.authorError}
+                    sx={{width:"40%"}}
+                    onChange={(event) => 
+                        {
+                            this.setState({author: event.target.value})
+                            this.authorError=false;
+                        }
+                    }
+                />
+                <TextField
+                    helperText="Enter a Comment to be displayed alongside the Quote"
+                    onChange={(event) => {this.setState({comment: event.target.value})}}
+                    label="Comment"
+                    sx={{width:"60%"}}
+                />
+            </Box>
+            <Box    
+                className="box"
+                sx=
+                    {{
+                        '& > :not(style)': { m: 1 },
+                        display:'flex',
+                        alignItems: 'center',
+                    }}>
+                <TextField
+                    className="textAreaQuote" 
+                    label="Quote"
+                    multiline
+                    required
+                    error={this.quoteError}
+                    onChange={(event) => 
+                        {
+                        this.setState({quote: event.target.value})
+                        this.quoteError = false;
+                        }
+                    }
+                />        
+            </Box>
+            <Box    
+                className="box"
+                sx=
+                    {{
+                        '& > :not(style)': { m: 1 },
+                        display:'flex',
+                        alignItems: 'center',
+                    }}>
 
-            <label>
-                Quote:
-                <input type="text" value={this.state.quote} onChange={this.handleChange} />
-            </label>
-            <label>
-                Quote2:
-                <input type="text" value={this.state.quote} onChange={this.handleChange} />
-            </label>
-            </div>
-          <input type="submit" quote="Submit" />
-        </form>
-      );
+                <Button 
+                    variant="contained"
+                    className="submitButton"
+                    color=
+                    {
+                        this.authorError || this.quoteError ? 
+                            "error" : this.submitSuccess ? 
+                                "success" : "primary" }
+                    onClick={()=> {this.handleSubmit();}}>Hello!</Button>
+            </Box>
+        </div>
+        );
     }
 }
 

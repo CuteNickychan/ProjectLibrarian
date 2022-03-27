@@ -4,6 +4,7 @@ import { getDocs } from "firebase/firestore";
 
 import { collection } from "firebase/firestore";
 
+import Button from '@mui/material/Button';
 
 async function LoadData()
 {
@@ -24,7 +25,7 @@ class Shelve extends Component {
   render() {
     return (
       <div>
-        <button onClick={() => {this.LoadData()}}>LoadData</button>
+        <Button variant="contained" onClick={() => {this.LoadData()}}>LoadData</Button>
         <ul>
           {this.state.data.map(doc => (
             <li key={doc.id}>

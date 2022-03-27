@@ -8,6 +8,8 @@ import App from './App.js'
 import { initializeApp } from "firebase/app"
 import { getFirestore  } from "firebase/firestore";
 
+import '../style/main.css';
+
 const firebaseConfig = {
   apiKey: "AIzaSyC2zBeQVb8-AOWRHIZ_lUg5ndRhVTYXLfI",
   authDomain: "projectlibrarian.firebaseapp.com",
@@ -24,7 +26,6 @@ window.db = getFirestore(firebaseApp);
 
 
 ReactDOM.render(
-
   <App/>,
   document.getElementById('app')
 );

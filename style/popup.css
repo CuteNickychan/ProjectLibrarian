@@ -17,6 +17,8 @@
     width: 100%;
     max-width: 640px;
     background-color: white;
+
+    border-radius: 20px;
 }
 
 .popup-inner .popup-close {
