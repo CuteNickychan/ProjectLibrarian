@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-require("regenerator-runtime/runtime");
+import runtime from "regenerator-runtime/runtime";
 
 import App from './App';
 const title = 'React with Webpack and Babel2';

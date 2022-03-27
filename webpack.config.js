@@ -18,7 +18,7 @@ var config = {
       extensions: ['*', '.js', '.jsx'],
     },
     output: {
-      path: path.resolve(__dirname, 'public/publicSrc'),
+      path: path.resolve(__dirname, 'public/publicsrc'),
       filename: 'bundle.js'
     },
     plugins: [
