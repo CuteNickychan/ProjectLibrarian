@@ -1,13 +1,35 @@
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 const path = require('path');
 
 var config = {
     // The entry point file described above
     entry: './src/index.js',
     // The location of the build folder described above
-    output: {
-        path: path.resolve(__dirname, 'public'),
-        filename: 'bundle.js'
+    module: {
+      rules: [
+        {
+          test: /\.(js|jsx)$/,
+          exclude: /node_modules/,
+          use: ['babel-loader']
+        }
+      ]
     },
+    resolve: {
+      extensions: ['*', '.js', '.jsx'],
+    },
+    output: {
+      path: path.resolve(__dirname, 'public/publicSrc'),
+      filename: 'bundle.js'
+    },
+    plugins: [
+      new BrowserSyncPlugin({
+        // browse to http://localhost:3000/ during development,
+        // ./public directory is being served
+        //host: 'localhost',
+        proxy: "localhost:5000",
+        baseDir: ['public']
+      })
+    ]
   };
   
 module.exports = (env, argv) => {
