@@ -2,6 +2,12 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 const path = require('path');
 
 var config = {
+    //Firebase causing isssues with bundle size
+    performance: {
+      hints: false,
+      maxEntrypointSize: 512000,
+      maxAssetSize: 512000
+    },
     // The entry point file described above
     entry: './src/index.js',
     // The location of the build folder described above
