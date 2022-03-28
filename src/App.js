@@ -1,24 +1,32 @@
-import React,{useState} from 'react';
+import React,{Component, useState} from 'react';
 import QuoteForm from './QuoteForm';
 import { PopUp } from './Popup';
 import Shelve from './Shelves';
 
 import Button from '@mui/material/Button';
+import { Box } from '@mui/material';
 
-function App()
+class App extends Component
 {
-  const [buttonPopup, setButtonPopup] = useState(false);
+  constructor(props) {
+    super(props);
+    this.state = {
+      buttonPopup: false,
+    };
+  }
 
+  render()
+  {
     return(
-    <div>
-      <Button variant="contained" id="PupUp-Button" onClick={()=> setButtonPopup(true)}>Add Quote</Button>
-        <PopUp trigger={buttonPopup} setTrigger={setButtonPopup}>
-          <QuoteForm setTrigger={setButtonPopup}/>
+      <div>
+        <Button variant="contained" className='addQuote' onClick={()=> this.setState({buttonPopup:true})}>Add Quote</Button>
+        <Shelve/>
+        <PopUp trigger={this.state.buttonPopup} setTrigger={(state) => {this.setState({buttonPopup:state})}}>
+          <QuoteForm setTrigger={(state) => {this.setState({buttonPopup:state})}}/>
         </PopUp>
-      <Shelve/>
-    </div>
+      </div>
     );
-  
+  }
 }
 
 export default App;

@@ -4,7 +4,6 @@ import { addDoc } from "firebase/firestore";
 import { collection } from "firebase/firestore";
 
 import { TextField, Box,Button } from '@mui/material';
-import TextareaAutosize from '@mui/base/TextareaAutosize';
 
 import '../style/QuoteForm.css';
 
@@ -21,7 +20,7 @@ class QuoteForm extends Component {
         author: '',
         comment:''
     };
-        this.handleSubmit = this.handleSubmit.bind(this);
+        //this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     validateForm()
@@ -56,6 +55,7 @@ class QuoteForm extends Component {
                 });
                 
                 this.submitSuccess = true;
+                this.forceUpdate();
                 setTimeout(()=>{this.props.setTrigger(false)},500);
             } 
         }catch(e)
