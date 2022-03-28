@@ -126,7 +126,7 @@ const QuoteForm: React.FC<Props> = (props) => {
           }
           onClick={handleSubmit}
         >
-          Hello!
+          Submit Quote!
         </Button>
       </Box>
     </div>
