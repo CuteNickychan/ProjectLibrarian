@@ -1,8 +1,7 @@
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
-const path = require('path');
+const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
+const path = require("path");
 
 var config = {
-
   experiments: {
     topLevelAwait: true,
   },
@@ -10,51 +9,49 @@ var config = {
   performance: {
     hints: false,
     maxEntrypointSize: 512000,
-    maxAssetSize: 512000
+    maxAssetSize: 512000,
   },
   // The entry point file described above
-  entry: './src/index.js',
+  entry: "./src/index.tsx",
   // The location of the build folder described above
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: ['babel-loader']
+        use: ["babel-loader"],
       },
+      { test: /\.tsx?$/, loader: "ts-loader" },
       {
         test: /\.css$/i,
         use: ["style-loader", "css-loader"],
-      }
-    ]
+      },
+    ],
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx'],
+    extensions: ["*", ".js", ".jsx", ".ts", ".tsx"],
   },
   output: {
-    path: path.resolve(__dirname, 'public/publicsrc'),
-    filename: 'bundle.js'
+    path: path.resolve(__dirname, "public/publicsrc"),
+    filename: "bundle.js",
   },
   plugins: [
     new BrowserSyncPlugin({
-      // browse to http://localhost:3000/ during development,
-      // ./public directory is being served
-      //host: 'localhost',
       proxy: "localhost:5000",
-      baseDir: ['public']
-    })
-  ]
+      baseDir: ["public"],
+    }),
+  ],
 };
-  
+
 module.exports = (env, argv) => {
   // Optional and for development only. This provides the ability to
   // map the built code back to the original source format when debugging.
-  
-  if (argv.mode === 'development') {
-      config.devtool = 'eval-source-map';
+
+  if (argv.mode === "development") {
+    config.devtool = "eval-source-map";
   }
 
-  if (argv.mode === 'production') {
+  if (argv.mode === "production") {
     //...
   }
 
