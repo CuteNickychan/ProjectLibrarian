@@ -9,7 +9,7 @@ import { TextField, Box, Button } from "@mui/material";
 import "../style/QuoteForm.css";
 
 interface Props {
-  callBack: (s: boolean) => void;
+  callBack?: (s: boolean) => void;
   setTrigger: (s: boolean) => void;
 }
 
@@ -73,11 +73,7 @@ const QuoteForm: React.FC<Props> = (props) => {
           sx={{ width: "40%" }}
           onChange={(event) => {
             setAuthor(event.target.value);
-            if (props.callBack) {
-              if (/\S/.test(author)) props.callBack(false);
-              else props.callBack(true);
-            }
-            setAuthorError(false);
+            props.callBack?.(!/\S/.test(event.target.value));
           }}
         />
         <TextField
@@ -105,10 +101,7 @@ const QuoteForm: React.FC<Props> = (props) => {
           error={quoteError}
           onChange={(event) => {
             setQuote(event.target.value);
-            if (props.callBack) {
-              if (/\S/.test(quote)) props.callBack(false);
-              else props.callBack(true);
-            }
+            props.callBack?.(!/\S/.test(event.target.value));
             setQuoteError(false);
           }}
         />
